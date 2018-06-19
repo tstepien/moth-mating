@@ -36,7 +36,7 @@ colormap(jet)
 axis equal
 end
 
-% cont = fcontour(@(x,y) odorFunTime(x,y,t,interval),[-50 1000 -500 500],...
+% cont = fcontour(@(x,y) odorFunTime_tues3pm(x,y,t,interval),[-50 1000 -500 500],...
 %     'LevelList',[min(moths.quality),max(moths.quality)]);
 
 while (t < 3600*2)
@@ -55,7 +55,7 @@ moths.angles(ind) = 3*pi/2 + (rand(1,length(ind))-0.5).*moths.windsense(ind)...
     - pi*(rand(1,length(ind))>=0.5);
 
 %%% plume concentration
-c = odorFunTime(real(moths.z),imag(moths.z) , t, interval);
+c = odorFunTime_tues3pm(real(moths.z),imag(moths.z) , t, interval);
 
 moths.success = sqrt(real(moths.z).^2 + imag(moths.z).^2) < capThres;
 
@@ -84,7 +84,7 @@ title( sprintf('t=%g,s1=%g,s2=%g,s3=%g,s4=%g',t,sum(moths.state==1),...
     drawnow
 % if ceil(t/20)==t/20
 %     delete(cont)
-%     cont = fcontour(@(x,y) odorFunTime(x,y,t,interval),[-50 1000 -500 500],...
+%     cont = fcontour(@(x,y) odorFunTime_tues3pm(x,y,t,interval),[-50 1000 -500 500],...
 %         'LevelList',[min(moths.quality),max(moths.quality)]);
 % end
 % mothplot.XData = real(moths.z);
