@@ -29,6 +29,8 @@ doplot = pars.doplot;
 dovideo = pars.doplot;
 
 
+[moths.interval,moths.Q] = female_strategy()
+
 if dovideo == 1
 v = VideoWriter('phaseplanesnoise.avi');
 open(v);
@@ -51,7 +53,7 @@ moths.windsense = windsense*ones(1,n);
 
 moths.angles = rand(1,n)*2*pi;                  % Initialize heading vector for moths
 
-dt = 1;
+pars.dt = 1;
 t = 0;
    
     fact = 2; 
@@ -65,7 +67,7 @@ t = 0;
 
 if doplot==1
     hold on
-    cont = fcontour(@(x,y) odorFunTime_noise(x,y,t,interval),[-50 600 -500 500],'LevelList',[min(moths.quality),max(moths.quality)] , 'MeshDensity',200);
+    cont = fcontour(@(x,y) odorFunTime_strategy(x,y,t,moths.interval,moths.Q),[-50 600 -500 500],'LevelList',[min(moths.quality),max(moths.quality)] , 'MeshDensity',200);
     % mothplot = plot(moths.z,'.r');
     mothplot = scatter(real(moths.z),imag(moths.z),[],moths.state,'.')
     caxis([1,4])
@@ -83,8 +85,8 @@ end
 
 
 while (t < runTime)
-    t=t+dt;
-    moths.timeinstate = moths.timeinstate + dt;
+    t=t+pars.dt;
+    moths.timeinstate = moths.timeinstate + pars.dt;
     
     %%% update angles
     ind = find(moths.state==1);
@@ -100,7 +102,7 @@ while (t < runTime)
     %%% plume concentration
 %     c = odorFunTime_tues3pm(real(moths.z),imag(moths.z) , t, interval);
     % c = odorFun(real(moths.z),imag(moths.z));
-   c = odorFunTime_noise(real(moths.z),imag(moths.z) , t, interval);
+   c = odorFunTime_strategy(real(moths.z),imag(moths.z) , t, interval);
     
     
     moths.success = sqrt(real(moths.z).^2 + imag(moths.z).^2) < capThres;
@@ -117,7 +119,7 @@ while (t < runTime)
     
     moths.timeinstate(moths.old~=moths.state) = 0;
     
-    moths.z = moths.z + dt*speed*(exp(1i*moths.angles));% + (c>moths.quality).*exp(1i*pi));
+    moths.z = moths.z + pars.dt*speed*(exp(1i*moths.angles));% + (c>moths.quality).*exp(1i*pi));
     moths.z = (1-moths.success).*moths.z;
     
     
@@ -130,12 +132,12 @@ while (t < runTime)
             sum(moths.state==2),sum(moths.state==3),sum(moths.state==4)))
         drawnow
         
-        if ceil(t/10)==t/10
+        if ceil(t/1)==t/1
             delete(cont)
 % cont = fcontour(@(x,y) odorFunTime_noise(x,y,t,interval),[-50 1000 -500 500],...
 %                  'LevelList',[min(moths.quality),max(moths.quality)],'MeshDensity',100);
             
-            cont = fcontour(@(x,y) odorFunTime_noise(x,y,t,interval),[-50 600 -500 500],...
+            cont = fcontour(@(x,y) odorFunTime_strategy(x,y,t,moths.interval,moths.Q),[-50 600 -500 500],...
                'LevelList',[min(moths.quality),max(moths.quality)],'MeshDensity',200);
         end
         
