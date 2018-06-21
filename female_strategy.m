@@ -1,34 +1,34 @@
-function [Q,Qpart,releaseTime,releaseQ] = female_strategy(numpuffs,totalQ,gap,...
+function [releaseTime,releaseQ] = female_strategy(numpuffs,totalQ,gap,...
     constincdec,dt,tend)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+% [releaseTime,releaseQ] = female_strategy(numpuffs,totalQ,gap,...
+%     constincdec,dt,tend)
 %
-% constincdec = 'constant','increase','decrease'
-
-% clear variables
-% 
-% tend = 10;
-% 
-% numpuffs = 2;
-% totalQ = 10;
-% gap = tend/2;
-% constincdec = 'constant';
-% dt = 0.00001;
-% interval = 0.01;
-
-
-%%%%%%%
+% female moth pheromone release strategy
+%
+% inputs:
+%   numpuffs    = number of continuous puffs of pheromone release
+%   totalQ      = total amount of pheromone released
+%   gap         = time gap between puffs released
+%   constincdec = options are: 'constant', 'increase', 'decrease', or 'hat'
+%                 this is the relation between concentrations of the
+%                 individual puffs and time
+%   dt          = time step of the simulation
+%   tend        = ending time of the pheromone release/simulation
+%
+% outputs:
+%   releaseTime = vector of times at which pheromone is released
+%   releaseQ = vector of concentrations released at corresponding releaseTime
 
 %%% time vector
 t = 0:dt:tend;
 
-%%% set heaviside at origin to be 1 instead of MATLAB's default 1/2
+%%% set Heaviside at origin to be 1 instead of MATLAB's default 1/2
 sympref('HeavisideAtOrigin', 1);
 
-%%% set the width of releases
+%%% set the width of pheromone releases
 width = (tend - (numpuffs-1)*gap)/numpuffs;
 
-%%% set the heights (Q) of release
+%%% set the heights (Q) of pheromone releases
 height = zeros(1,numpuffs);
 if strcmp(constincdec,'constant')==1
     height = (totalQ/numpuffs)/width * ones(1,numpuffs);
@@ -42,32 +42,27 @@ elseif strcmp(constincdec,'decrease')==1
     for i=1:numpuffs
         height(i) = spacing(i) * totalQ/(sum(spacing(2:end))*width);
     end
-end
-
-%%% function of Q releases
-Qpart = zeros(numpuffs,length(t));
-for i = 1:numpuffs
-    if i==1
-        if numpuffs==1
-            Qpart(i,:) = height(i)*(heaviside(t) - heaviside(t - tend));
-        else
-            Qpart(i,:) = height(i)*(heaviside(t) ...
-                - heaviside(t - (i*tend/numpuffs - gap/2)));
-        end
-    elseif i==numpuffs
-        Qpart(i,:) = height(i)*(heaviside(t - ((i-1)*tend/numpuffs + gap/2)) ...
-            - heaviside(t - tend));
+elseif strcmp(constincdec,'hat')==1
+    if numpuffs/2==ceil(numpuffs/2)
+        spacing = [linspace(0,1,ceil((numpuffs+1)/2)) , ...
+            flip(linspace(0,1,ceil((numpuffs+1)/2)))];
     else
-        Qpart(i,:) = height(i)*(heaviside(t - ((i-1)*tend/numpuffs + gap/2)) ...
-            - heaviside(t - (i*tend/numpuffs - gap/2)));
+        spacing = [linspace(0,1,(numpuffs+1)/2+1) , ...
+            flip(linspace(0,1,(numpuffs+1)/2+1))];
+        spacing = spacing([1:(numpuffs+1)/2,(numpuffs+1)/2+2:end]);
+    end
+    for i=1:numpuffs
+        height(i) = spacing(i+1) * totalQ/(sum(spacing(2:end))*width);
     end
 end
-if size(Qpart,1)>1
-    Q = sum(Qpart);
-else
-    Q = Qpart;
+
+%%% concentration of pheromone releases
+Q = 0;
+for i = 1:numpuffs
+    Q = Q + height(i)*(heaviside(t - (i-1)*(width+gap)) ...
+        - heaviside(t - (i*width+(i-1)*gap)));
 end
 
-%%% vectors of release times and Q's
+%%% vectors of pheromone release times and concentrations
 releaseTime = t(Q>0);
 releaseQ = Q(Q>0);
