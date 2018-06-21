@@ -13,3 +13,5 @@ for i = 1:pulse_count
     c = c+ Q./(4*pi.*r) .* exp( ( -( x-u*t).^2 - y.^2)./(4.*r) );
 end
 
+
+% :)
