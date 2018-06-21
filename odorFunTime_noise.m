@@ -3,7 +3,7 @@ function c = odorFunTime_noise(x,y,t, interval)
 Q = 1;
 u = 5;
 c = 0;
-K = .0001;
+K = .01;
 ysig = 2;
 r = K*x./u;
 
