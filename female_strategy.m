@@ -63,6 +63,8 @@ for i = 1:numpuffs
         - heaviside(t - (i*width+(i-1)*gap)));
 end
 
+plot(t,Q)
+
 %%% vectors of pheromone release times and concentrations
 releaseTime = t(Q>0);
 releaseQ = Q(Q>0);

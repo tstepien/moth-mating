@@ -27,9 +27,13 @@ capThres = pars.capture_threshold;
 runTime = pars.runtime;
 doplot = pars.doplot;
 dovideo = pars.doplot;
+numPuffs = pars.numPuffs;
+QT = pars.QT; 
+puffGap = pars.puffGap;
+strategy = pars.strategy;
+dt = pars.dt;
 
-
-[moths.interval,moths.Q] = female_strategy()
+[moths.interval,moths.Q] = female_strategy(numPuffs,QT,puffGap,strategy,dt,runTime);
 
 if dovideo == 1
 v = VideoWriter('phaseplanesnoise.avi');
@@ -102,7 +106,7 @@ while (t < runTime)
     %%% plume concentration
 %     c = odorFunTime_tues3pm(real(moths.z),imag(moths.z) , t, interval);
     % c = odorFun(real(moths.z),imag(moths.z));
-   c = odorFunTime_strategy(real(moths.z),imag(moths.z) , t, interval);
+   c = odorFunTime_strategy(real(moths.z),imag(moths.z) , t, moths.interval,moths.Q);
     
     
     moths.success = sqrt(real(moths.z).^2 + imag(moths.z).^2) < capThres;
