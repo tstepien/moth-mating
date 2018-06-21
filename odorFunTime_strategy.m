@@ -2,7 +2,7 @@ function c = odorFunTime_strategy(x,y,t, interval,Q)
 
 u = 5;
 c = 0;
-K  =0.01;
+K  = 0.01;
 
 ysig = 1;
 % pulse_count = roundn(t/interval,0);
