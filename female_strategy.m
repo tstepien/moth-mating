@@ -63,7 +63,25 @@ for i = 1:numpuffs
         - heaviside(t - (i*width+(i-1)*gap)));
 end
 
-% plot(t,Q)
+%strategy plotting
+strategyplot = 0;
+if strategyplot == 1
+  fact = 2;
+  width = 4*fact;
+  height = 3*fact;
+  x0 = 5;
+  y0 = 5;
+  fontsize = 18;
+
+  figure('Units','inches','Position',[x0 y0 width height],'PaperPositionMode','auto','Color',[1,1,1]);
+
+  plot(t,Q,'LineWidth',2)
+
+  xlabel({'$t$'},'FontUnits','points','Interpreter','latex','FontWeight','normal','FontSize',fontsize,'FontName','Times')
+  ylabel({'Pheromone Release'},'FontUnits','points','Interpreter','latex','FontWeight','normal','FontSize',fontsize,'FontName','Times')
+  set(gca,'Units','normalized','FontUnits','points','FontWeight','normal','FontSize',fontsize,'FontName','Times')
+
+end
 
 %%% vectors of pheromone release times and concentrations
 releaseTime = t(Q>0);
