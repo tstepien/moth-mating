@@ -28,7 +28,7 @@ runTime = pars.runtime;
 doplot = pars.doplot;
 dovideo = pars.doplot;
 numPuffs = pars.numPuffs;
-QT = pars.QT; 
+QT = pars.QT;
 puffGap = pars.puffGap;
 strategy = pars.strategy;
 dt = pars.dt;
@@ -48,7 +48,7 @@ moths.state = ones(size(moths.z));              % Initialize state vector for mo
 %%% 3 - cast
 %%% 4 - made it to female
 
-moths.timeinstate = zeros(size(moths.z));      
+moths.timeinstate = zeros(size(moths.z));
 moths.success = zeros(size(moths.z));
 
 
@@ -59,17 +59,18 @@ moths.angles = rand(1,n)*2*pi;                  % Initialize heading vector for 
 
 pars.dt = 1;
 t = 0;
-   
-    fact = 2; 
+
+    fact = 2;
   width = 4*fact;
   height = 3*fact;
   x0 = 5;
   y0 = 5;
   fontsize = 18;
 
-  figure('Units','inches','Position',[x0 y0 width height],'PaperPositionMode','auto','Color',[1,1,1]);
+
 
 if doplot==1
+    figure('Units','inches','Position',[x0 y0 width height],'PaperPositionMode','auto','Color',[1,1,1]);
     hold on
     cont = fcontour(@(x,y) odorFunTime_strategy(x,y,t,moths.interval,moths.Q),[-50 600 -500 500],'LevelList',[min(moths.quality),max(moths.quality)] , 'MeshDensity',200);
     % mothplot = plot(moths.z,'.r');
@@ -91,28 +92,28 @@ end
 while (t < runTime)
     t=t+pars.dt;
     moths.timeinstate = moths.timeinstate + pars.dt;
-    
+
     %%% update angles
     ind = find(moths.state==1);
     moths.angles(ind) = moths.angles(ind) + (rand(1,length(ind))-0.5)*2*pi;
-    
+
     ind = find(moths.state==2);
     moths.angles(ind) = pi + (rand(1,length(ind))-0.5).*moths.windsense(ind); %take time to turn? add noise?
-    
+
     ind = find(moths.state==3);
     moths.angles(ind) = 3*pi/2 + (rand(1,length(ind))-0.5).*moths.windsense(ind)...
         - pi*(rand(1,length(ind))>=0.5);
-    
+
     %%% plume concentration
 %     c = odorFunTime_tues3pm(real(moths.z),imag(moths.z) , t, interval);
     % c = odorFun(real(moths.z),imag(moths.z));
    c = odorFunTime_strategy(real(moths.z),imag(moths.z) , t, moths.interval,moths.Q);
-    
-    
+
+
     moths.success = sqrt(real(moths.z).^2 + imag(moths.z).^2) < capThres;
-    
+
     moths.old = moths.state;
-    
+
     %%% update states
     % castTime = 0;
     moths.state(moths.state==1 & c>moths.quality) = 2; %%% 1->2
@@ -120,13 +121,13 @@ while (t < runTime)
     moths.state(moths.state==3 & c>moths.quality) = 2; %%% 3->2
     moths.state(moths.state==3 & moths.timeinstate>castTime) = 1; %%% 3->1
     moths.state(moths.success==1) = 4; %%% ->4
-    
+
     moths.timeinstate(moths.old~=moths.state) = 0;
-    
+
     moths.z = moths.z + pars.dt*speed*(exp(1i*moths.angles));% + (c>moths.quality).*exp(1i*pi));
     moths.z = (1-moths.success).*moths.z;
-    
-    
+
+
     %plotting
     if doplot==1
         % quiver(real(moths.z),imag(moths.z),cos(moths.angles),sin(moths.angles),0.5)
@@ -135,16 +136,16 @@ while (t < runTime)
         title( sprintf('time = %g random walkers = %g \n surging = %g casting = %g mating = %g',t,sum(moths.state==1),...
             sum(moths.state==2),sum(moths.state==3),sum(moths.state==4)))
         drawnow
-        
+
         if ceil(t/1)==t/1
             delete(cont)
 % cont = fcontour(@(x,y) odorFunTime_noise(x,y,t,interval),[-50 1000 -500 500],...
 %                  'LevelList',[min(moths.quality),max(moths.quality)],'MeshDensity',100);
-            
+
             cont = fcontour(@(x,y) odorFunTime_strategy(x,y,t,moths.interval,moths.Q),[-50 600 -500 500],...
                'LevelList',[min(moths.quality),max(moths.quality)],'MeshDensity',200);
         end
-        
+
         mothplot.XData = real(moths.z);
         mothplot.YData = imag(moths.z);
         mothplot.CData = moths.state;
@@ -155,7 +156,7 @@ while (t < runTime)
         end
 
     end
-    
+
 end
 
 moths.timetocapture = t - moths.timeinstate(moths.state ==4 );
