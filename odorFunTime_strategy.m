@@ -1,4 +1,4 @@
-function c = odorFunTime_strategy(x,y,t, interval,Q)
+function c = odorFunTime_strategy(x,y,t, interval,Q,l_max)
 
 u = 5;
 c = 0;
@@ -11,6 +11,7 @@ pulses = find(interval < t );
 r = x./u;
 
  t = t - interval(pulses);
+ t = t(u*t<1.5*l_max);
 for i = 1:length(t)
    
 %     t = t - interval(i);

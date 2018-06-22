@@ -72,7 +72,7 @@ t = 0;
 if doplot==1
     figure('Units','inches','Position',[x0 y0 width height],'PaperPositionMode','auto','Color',[1,1,1]);
     hold on
-    cont = fcontour(@(x,y) odorFunTime_strategy(x,y,t,moths.interval,moths.Q),[-50 600 -500 500],'LevelList',[min(moths.quality),max(moths.quality)] , 'MeshDensity',200);
+    cont = fcontour(@(x,y) odorFunTime_strategy(x,y , t, moths.interval,moths.Q,max( real(moths.z) ) ),[-50 600 -500 500],'LevelList',[min(moths.quality),max(moths.quality)] , 'MeshDensity',200);
     % mothplot = plot(moths.z,'.r');
     mothplot = scatter(real(moths.z),imag(moths.z),[],moths.state,'.')
     caxis([1,4])
@@ -107,7 +107,7 @@ while (t < runTime)
     %%% plume concentration
 %     c = odorFunTime_tues3pm(real(moths.z),imag(moths.z) , t, interval);
     % c = odorFun(real(moths.z),imag(moths.z));
-   c = odorFunTime_strategy(real(moths.z),imag(moths.z) , t, moths.interval,moths.Q);
+   c = odorFunTime_strategy(real(moths.z),imag(moths.z) , t, moths.interval,moths.Q,max( real(moths.z) ) );
 
 
     moths.success = sqrt(real(moths.z).^2 + imag(moths.z).^2) < capThres;
@@ -142,7 +142,7 @@ while (t < runTime)
 % cont = fcontour(@(x,y) odorFunTime_noise(x,y,t,interval),[-50 1000 -500 500],...
 %                  'LevelList',[min(moths.quality),max(moths.quality)],'MeshDensity',100);
 
-            cont = fcontour(@(x,y) odorFunTime_strategy(x,y,t,moths.interval,moths.Q),[-50 600 -500 500],...
+            cont = fcontour(@(x,y) odorFunTime_strategy(x,y , t, moths.interval,moths.Q,max( real(moths.z) ) ),[-50 600 -500 500],...
                'LevelList',[min(moths.quality),max(moths.quality)],'MeshDensity',200);
         end
 
