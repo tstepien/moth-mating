@@ -33,11 +33,13 @@ hold on
 for i = ind
     scatter(mothx(1:M(i),i),mothy(1:M(i),i),10,'Filled')
 end
-scatter(25,500,10,'k','d','Filled')
+scatter(25,500,40,'k','d','Filled')
 plot(xunit, yunit,'k')
 hold off
-xlabel('$x$','Interpreter','latex','FontSize',16)
-ylabel('$y$','Interpreter','latex','FontSize',16,'Rotation',0)
+xlabel('$x$','Interpreter','latex','FontSize',20)
+ylabel('$y$','Interpreter','latex','FontSize',20,'Rotation',0)
 box on
 daspect([1 1 1])
-xlim(min(mothx(1:M(ind),ind)
+xlim([0,500])
+set(gca,'FontSize',12)
+set(gcf,'Units','inches','Position',[2,2,6,10],'PaperPositionMode','auto')
