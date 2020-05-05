@@ -26,11 +26,15 @@ for i=1:DT
             statsdata = jsondecode(fileread(filename));
             
             successpercentage(i,j,k,:) = statsdata.statistics.successpercentage;
-            meanarrivaltime(i,j,k,:) = statsdata.statistics.meanarrivaltime;
-            minarrivaltime(i,j,k,:) = statsdata.statistics.minarrivaltime;
+            meanarrivaltime(i,j,k,:) = statsdata.statistics.meanarrivaltime / timesimulated;
+            minarrivaltime(i,j,k,:) = statsdata.statistics.minarrivaltime / timesimulated;
         end
     end
 end
+
+no_success = (successpercentage==0);
+meanarrivaltime(no_success) = NaN;
+minarrivaltime(no_success) = NaN;
 
 maxSP = max(max(max(max(successpercentage))));
 maxMeanT = max(max(max(max(meanarrivaltime))));
@@ -44,6 +48,7 @@ y = puffreleaserate;
 xSplit = diff(x)/2;
 ySplit = diff(y)/2;
 xEdges = [x(1)-xSplit(1) x(2:end)-xSplit x(end)+xSplit(end)];
+xEdges(1) = 0;
 yEdges = [y(1)-ySplit(1) y(2:end)-ySplit y(end)+ySplit(end)];
 [xGrid, yGrid] = meshgrid(xEdges,yEdges);
 
@@ -66,21 +71,27 @@ for i=1:S
         end
         if i==1
             % pheromone detection threshold
-            title(['C_{tol} = ',num2str(detectthresh(j))])
+            title(['C_{tol} = ',num2str(detectthresh(j)),' a.u.'])
         end
-        xlabel('Molecular Amount')
+        if i==S
+            xlabel('Pheromone Amount (ng)')
+            set(gca,'XTick',[10^0, 10^1])
+        else
+            set(gca,'XTicklabel',[])
+        end
         if j==1
             % male speed
-            ylabel({['\bf v = ',num2str(speed(i))] ; ...
-                '\rm Release Rate'})
+            ylabel({['\bf v = ',num2str(speed(i)),' cm/s'] ; '\rm Release Rate (/s)'})
         else
-            ylabel('Release Rate')
+            set(gca,'YTicklabel',[])
         end
-        set(gca,'YDir','normal')
+        set(gca,'YDir','normal','XScale','log')
     end
 end
 %sgtitle('Success Percentage')
 set(gcf,'Units','inches','Position',[2,2,13,9],'PaperPositionMode','auto')
+
+
 
 %%% Mean Arrival Time plot
 figure(2)
@@ -101,21 +112,27 @@ for i=1:DT
         end
         if i==1
             % pheromone detection threshold
-            title(['C_{tol} = ',num2str(detectthresh(j))])
+            title(['C_{tol} = ',num2str(detectthresh(j)),' a.u.'])
         end
-        xlabel('Molecular Amount')
+        if i==S
+            xlabel('Pheromone Amount (ng)')
+            set(gca,'XTick',[10^0, 10^1])
+        else
+            set(gca,'XTicklabel',[])
+        end
         if j==1
             % male speed
-            ylabel({['\bf v = ',num2str(speed(i))] ; ...
-                '\rm Release Rate'})
+            ylabel({['\bf v = ',num2str(speed(i)),' cm/s'] ; '\rm Release Rate (/s)'})
         else
-            ylabel('Release Rate')
+            set(gca,'YTicklabel',[])
         end
-        set(gca,'YDir','normal')
+        set(gca,'YDir','normal','XScale','log')
     end
 end
 %sgtitle('Mean Arrival Time')
 set(gcf,'Units','inches','Position',[2,2,13,9],'PaperPositionMode','auto')
+
+
 
 %%% Minimum Arrival Time plot
 figure(3)
@@ -136,17 +153,21 @@ for i=1:DT
         end
         if i==1
             % pheromone detection threshold
-            title(['C_{tol} = ',num2str(detectthresh(j))])
+            title(['C_{tol} = ',num2str(detectthresh(j)),' a.u.'])
         end
-        xlabel('Molecular Amount')
+        if i==S
+            xlabel('Pheromone Amount (ng)')
+            set(gca,'XTick',[10^0, 10^1])
+        else
+            set(gca,'XTicklabel',[])
+        end
         if j==1
             % male speed
-            ylabel({['\bf v = ',num2str(speed(i))] ; ...
-                '\rm Release Rate'})
+            ylabel({['\bf v = ',num2str(speed(i)),' cm/s'] ; '\rm Release Rate (/s)'})
         else
-            ylabel('Release Rate')
+            set(gca,'YTicklabel',[])
         end
-        set(gca,'YDir','normal')
+        set(gca,'YDir','normal','XScale','log')
     end
 end
 %sgtitle('Minimum Arrival Time')
