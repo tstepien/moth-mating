@@ -56,9 +56,11 @@ yEdges = [y(1)-ySplit(1) y(2:end)-ySplit y(end)+ySplit(end)];
 figure(1)
 tiledlayout(S,DT,'TileSpacing','normal','Padding','compact');
 for i=1:S
+    i2 = S+1 - i;
     for j=1:DT
         nexttile
-        SPreshape = reshape(successpercentage(j,i,:,:),[MA,PRR]);
+        j2 = DT+1 - j;
+        SPreshape = reshape(successpercentage(j2,i2,:,:),[MA,PRR]);
         SPtranspose = SPreshape';
         SPplot = [[SPtranspose zeros(size(SPtranspose,1),1)] ;
             zeros(1,size(SPtranspose,2)+1)]; % Last row/col ignored
@@ -71,7 +73,7 @@ for i=1:S
         end
         if i==1
             % pheromone detection threshold
-            title(['C_{tol} = ',num2str(detectthresh(j)),' a.u.'])
+            title(['C_{tol} = ',num2str(detectthresh(j2)),' a.u.'])
         end
         if i==S
             xlabel('Pheromone Amount (ng)')
@@ -81,7 +83,7 @@ for i=1:S
         end
         if j==1
             % male speed
-            ylabel({['\bf v = ',num2str(speed(i)),' cm/s'] ; '\rm Release Rate (/s)'})
+            ylabel({['\bf v = ',num2str(speed(i2)),' cm/s'] ; '\rm Release Rate (/s)'})
         else
             set(gca,'YTicklabel',[])
         end
@@ -96,10 +98,12 @@ set(gcf,'Units','inches','Position',[2,2,13,9],'PaperPositionMode','auto')
 %%% Mean Arrival Time plot
 figure(2)
 tiledlayout(S,DT,'TileSpacing','normal','Padding','compact');
-for i=1:DT
-    for j=1:S
+for i=1:S
+    i2 = S+1 - i;
+    for j=1:DT
         nexttile
-        MeanTreshape = reshape(meanarrivaltime(j,i,:,:),[MA,PRR]);
+        j2 = DT+1 - j;
+        MeanTreshape = reshape(meanarrivaltime(j2,i2,:,:),[MA,PRR]);
         MeanTtranspose = MeanTreshape';
         MeanTplot = [[MeanTtranspose zeros(size(MeanTtranspose,1),1)] ;
             zeros(1,size(MeanTtranspose,2)+1)]; % Last row/col ignored
@@ -112,7 +116,7 @@ for i=1:DT
         end
         if i==1
             % pheromone detection threshold
-            title(['C_{tol} = ',num2str(detectthresh(j)),' a.u.'])
+            title(['C_{tol} = ',num2str(detectthresh(j2)),' a.u.'])
         end
         if i==S
             xlabel('Pheromone Amount (ng)')
@@ -122,7 +126,7 @@ for i=1:DT
         end
         if j==1
             % male speed
-            ylabel({['\bf v = ',num2str(speed(i)),' cm/s'] ; '\rm Release Rate (/s)'})
+            ylabel({['\bf v = ',num2str(speed(i2)),' cm/s'] ; '\rm Release Rate (/s)'})
         else
             set(gca,'YTicklabel',[])
         end
@@ -137,10 +141,12 @@ set(gcf,'Units','inches','Position',[2,2,13,9],'PaperPositionMode','auto')
 %%% Minimum Arrival Time plot
 figure(3)
 tiledlayout(S,DT,'TileSpacing','normal','Padding','compact');
-for i=1:DT
-    for j=1:S
+for i=1:S
+    i2 = S+1 - i;
+    for j=1:DT
         nexttile
-        MinTreshape = reshape(minarrivaltime(j,i,:,:),[MA,PRR]);
+        j2 = DT+1 - j;
+        MinTreshape = reshape(minarrivaltime(j2,i2,:,:),[MA,PRR]);
         MinTtranspose = MinTreshape';
         MinTplot = [[MinTtranspose zeros(size(MinTtranspose,1),1)] ;
             zeros(1,size(MinTtranspose,2)+1)]; % Last row/col ignored
@@ -153,7 +159,7 @@ for i=1:DT
         end
         if i==1
             % pheromone detection threshold
-            title(['C_{tol} = ',num2str(detectthresh(j)),' a.u.'])
+            title(['C_{tol} = ',num2str(detectthresh(j2)),' a.u.'])
         end
         if i==S
             xlabel('Pheromone Amount (ng)')
@@ -163,7 +169,7 @@ for i=1:DT
         end
         if j==1
             % male speed
-            ylabel({['\bf v = ',num2str(speed(i)),' cm/s'] ; '\rm Release Rate (/s)'})
+            ylabel({['\bf v = ',num2str(speed(i2)),' cm/s'] ; '\rm Release Rate (/s)'})
         else
             set(gca,'YTicklabel',[])
         end
