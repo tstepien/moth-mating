@@ -153,7 +153,7 @@ for i=1:S
         pc = pcolor(xGrid,yGrid,MinTplot);
         pc.EdgeColor = 'none';
         
-        caxis([0,maxMinT])
+        caxis([0,1])
         if i==1 && j==S
             colorbar%(gca,'Position',[0.914910311178399 0.114464100594575 0.0096078901063974 0.792924036762345]);
         end
