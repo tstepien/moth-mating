@@ -26,7 +26,7 @@ for i=1:DT
             statsdata = jsondecode(fileread(filename));
             
             successpercentage(i,j,k,:) = statsdata.statistics.successpercentage;
-            meanarrivaltime(i,j,k,:) = statsdata.statistics.meanarrivaltime / timesimulated;
+            meanarrivaltime(i,j,k,:) = statsdata.statistics.meanarrivaltime;
             minarrivaltime(i,j,k,:) = statsdata.statistics.minarrivaltime / timesimulated;
         end
     end
