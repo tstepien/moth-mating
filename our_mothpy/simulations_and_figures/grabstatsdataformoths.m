@@ -52,6 +52,8 @@ xEdges(1) = 0;
 yEdges = [y(1)-ySplit(1) y(2:end)-ySplit y(end)+ySplit(end)];
 [xGrid, yGrid] = meshgrid(xEdges,yEdges);
 
+fontsize = 12;
+
 %%% Success Percentage plot
 figure(1)
 tiledlayout(S,DT,'TileSpacing','normal','Padding','compact');
@@ -73,26 +75,25 @@ for i=1:S
         end
         if i==1
             % pheromone detection threshold
-            title(['C_{tol} = ',num2str(detectthresh(j2)),' a.u.'])
+            title(['$C_\mathrm{tol}$ = ',num2str(detectthresh(j2)),' ng/m$^2$'],'Interpreter','latex')
         end
         if i==S
-            xlabel('Pheromone Amount (ng)')
+            xlabel('$m_p$ (ng)','Interpreter','latex')
             set(gca,'XTick',[10^0, 10^1])
         else
             set(gca,'XTicklabel',[])
         end
         if j==1
             % male speed
-            ylabel({['\bf v = ',num2str(speed(i2)),' cm/s'] ; '\rm Release Rate (/s)'})
+            ylabel({['\bf $v$ = ',num2str(speed(i2)),' cm/s'] ; '\rm $f_r$ (/s)'},'Interpreter','latex')
         else
             set(gca,'YTicklabel',[])
         end
-        set(gca,'YDir','normal','XScale','log')
+        set(gca,'YDir','normal','XScale','log','FontSize',fontsize)
     end
 end
 %sgtitle('Success Percentage')
-set(gcf,'Units','inches','Position',[2,2,13,9],'PaperPositionMode','auto')
-
+set(gcf,'Units','inches','Position',[2,2,13,10],'PaperPositionMode','auto')
 
 
 %%% Mean Arrival Time plot
@@ -116,25 +117,25 @@ for i=1:S
         end
         if i==1
             % pheromone detection threshold
-            title(['C_{tol} = ',num2str(detectthresh(j2)),' a.u.'])
+            title(['$C_\mathrm{tol}$ = ',num2str(detectthresh(j2)),' ng/m$^2$'],'Interpreter','latex')
         end
         if i==S
-            xlabel('Pheromone Amount (ng)')
+            xlabel('$m_p$ (ng)','Interpreter','latex')
             set(gca,'XTick',[10^0, 10^1])
         else
             set(gca,'XTicklabel',[])
         end
         if j==1
             % male speed
-            ylabel({['\bf v = ',num2str(speed(i2)),' cm/s'] ; '\rm Release Rate (/s)'})
+            ylabel({['\bf $v$ = ',num2str(speed(i2)),' cm/s'] ; '\rm $f_r$ (/s)'},'Interpreter','latex')
         else
             set(gca,'YTicklabel',[])
         end
-        set(gca,'YDir','normal','XScale','log')
+        set(gca,'YDir','normal','XScale','log','FontSize',fontsize)
     end
 end
 %sgtitle('Mean Arrival Time')
-set(gcf,'Units','inches','Position',[2,2,13,9],'PaperPositionMode','auto')
+set(gcf,'Units','inches','Position',[2,2,13,10],'PaperPositionMode','auto')
 
 
 
@@ -159,25 +160,25 @@ for i=1:S
         end
         if i==1
             % pheromone detection threshold
-            title(['C_{tol} = ',num2str(detectthresh(j2)),' a.u.'])
+            title(['$C_\mathrm{tol}$ = ',num2str(detectthresh(j2)),' ng/m$^2$'],'Interpreter','latex')
         end
         if i==S
-            xlabel('Pheromone Amount (ng)')
+            xlabel('$m_p$ (ng)','Interpreter','latex')
             set(gca,'XTick',[10^0, 10^1])
         else
             set(gca,'XTicklabel',[])
         end
         if j==1
             % male speed
-            ylabel({['\bf v = ',num2str(speed(i2)),' cm/s'] ; '\rm Release Rate (/s)'})
+            ylabel({['\bf $v$ = ',num2str(speed(i2)),' cm/s'] ; '\rm $f_r$ (/s)'},'Interpreter','latex')
         else
             set(gca,'YTicklabel',[])
         end
-        set(gca,'YDir','normal','XScale','log')
+        set(gca,'YDir','normal','XScale','log','FontSize',fontsize)
     end
 end
 %sgtitle('Minimum Arrival Time')
-set(gcf,'Units','inches','Position',[2,2,13,9],'PaperPositionMode','auto')
+set(gcf,'Units','inches','Position',[2,2,13,10],'PaperPositionMode','auto')
 
 
 
