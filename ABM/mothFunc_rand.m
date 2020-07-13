@@ -41,7 +41,6 @@ open(v);
 end
 
 
-% moths.z = complex(x0*ones(1,n),y0*ones(1,n));   % Initialize coord vector for moths
 %Randomly initialize moth position in a 100 m line, 500 m downwind of female
 moths.z = complex(500*ones(1,n) , 100*rand(1,n));
 
@@ -55,11 +54,10 @@ moths.state = ones(size(moths.z));              % Initialize state vector for mo
 moths.timeinstate = zeros(size(moths.z));
 moths.success = zeros(size(moths.z));
 
-% Fixed speed and ctol
-moths.quality = quality*ones(1,n);
-moths.speed = speed*ones(1,n);
 
-
+% Random speed and ctol
+moths.quality = 10.^((log10(quality)-2) + 4*rand(1,n));
+moths.speed = 0.5 + 2*rand(1,n);
 
 moths.windsense = windsense*ones(1,n);
 
