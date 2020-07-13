@@ -24,7 +24,7 @@ to achieve short time-scale structure of odor plumes. *Environ. Fluid Mech.* 200
 ## Description of Folders
 
 + [ABM](ABM): Code to run simulations of our agent-based model
-+ [figures_in_paper](figures_in_paper): Code to create Figures 2D, 3-7 in our paper
++ [figures_in_paper](figures_in_paper): Code to create Figures 2-10 in our paper
 + [our_mothpy](our_mothpy): Our modification of the [MothPy](https://github.com/alexliberzonlab/mothpy) package to run simulations
 + [our_mothpy/simulations_and_figures](our_mothpy/simulations_and_figures): Code to create Figures A1-A2 in our paper.
 + [our_mothpy/simulations_and_figures/simulation_data](our_mothpy/simulations_and_figures/simulation_data): Output of our MothPy simulations.
