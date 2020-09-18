@@ -1,9 +1,9 @@
 # moth-mating
 
-<a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" /></a>
+<a href="https://github.com/tstepien/moth-mating/"><img src="https://img.shields.io/badge/GitHub-tstepien%2Fmoth--mating-blue" /></a> <a href="https://doi.org/10.3390/app10186543"><img src="https://img.shields.io/badge/doi-10.3390%2Fapp10186543-orange" /></a> <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" /></a>
 
 The code contained in the moth-mating project was developed to numerically simulate moth reproductive activities. It is described in:
->[Tracy L. Stepien](https://github.com/tstepien/), [Cole Zmurchok](https://github.com/zmurchok), [James B. Hengenius](https://github.com/jhengenius), [Rocio Marilyn Caja Rivera](https://sites.nd.edu/michael-lab/lab-members/senior-researchers/), [Maria D'Orsogna](https://www.csun.edu/~dorsogna/), and [Alan Lindsay](https://www3.nd.edu/~alindsa1/), Moth mating: Modeling female pheromone calling and male navigational strategies to optimize reproductive success, Submitted to *Applied Science*.
+>[Tracy L. Stepien](https://github.com/tstepien/), [Cole Zmurchok](https://github.com/zmurchok), [James B. Hengenius](https://github.com/jhengenius), [Rocio Marilyn Caja Rivera](https://sites.nd.edu/michael-lab/lab-members/senior-researchers/), [Maria R. D'Orsogna](https://www.csun.edu/~dorsogna/), and [Alan E. Lindsay](https://www3.nd.edu/~alindsa1/), Moth mating: Modeling female pheromone calling and male navigational strategies to optimize reproductive success, *Applied Science*, 10 (2020), 6543, DOI: [10.3390/app10186543](https://doi.org/10.3390/app10186543).
 
 We utilized the [MothPy](https://github.com/alexliberzonlab/mothpy) package developed for the work described in:
 
